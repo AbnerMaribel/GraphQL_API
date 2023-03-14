@@ -15,3 +15,7 @@ type Query {
     findAll: [Coffee]!
     findById(id: ID!): Coffee
 }
+
+type Mutation {
+    createCoffee(name: String, size: Size): Coffee
+}

@@ -23,6 +23,12 @@ public class CoffeeService {
         return coffees.stream().filter(coffee -> coffee.id() == id).findFirst();
     }
 
+    public Coffee create(String name, Size size) {
+        Coffee coffee = new Coffee(id.incrementAndGet(), name, size);
+        coffees.add(coffee);
+        return coffee;
+    }
+
     @PostConstruct
     private void init() {
         coffees.add(new Coffee(id.incrementAndGet(), "Caffè Americano", Size.GRANDE));
