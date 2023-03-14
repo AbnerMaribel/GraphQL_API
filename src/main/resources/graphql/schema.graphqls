@@ -1,7 +1,20 @@
+scalar DateTime
+
 type Coffee {
     id: ID!
     name: String
     size: Size
+}
+
+type Order {
+    orderId: ID!
+    coffee: Coffee
+    orderedOn: DateTime
+}
+
+type User {
+    userId: ID!
+    username: String
 }
 
 enum Size {
@@ -12,8 +25,8 @@ enum Size {
 }
 
 type Query {
-    findAll: [Coffee]!
-    findById(id: ID!): Coffee
+    allCofee: [Coffee]!
+    findAllOrders: [Order]!
 }
 
 type Mutation {

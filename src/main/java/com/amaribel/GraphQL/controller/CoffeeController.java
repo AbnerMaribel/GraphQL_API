@@ -3,6 +3,8 @@ package com.amaribel.GraphQL.controller;
 import com.amaribel.GraphQL.model.Coffee;
 import com.amaribel.GraphQL.model.Size;
 import com.amaribel.GraphQL.service.CoffeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -17,17 +19,21 @@ import java.util.Optional;
 public class CoffeeController {
     private final CoffeeService coffeeService;
 
+    private static final Logger log = LoggerFactory.getLogger(CoffeeController.class);
+
     public CoffeeController(CoffeeService coffeeService) {
         this.coffeeService = coffeeService;
+        log.info("All Coffees: {}", coffeeService.findAll());
     }
 
-    @QueryMapping
+    @Secured("ROLE_USER")
+    @QueryMapping(value = "allCoffee")
     public List<Coffee> findAll() {
         return coffeeService.findAll();
     }
 
     @Secured("ROLE_USER")
-    @QueryMapping(value = "allCoffee")
+    @QueryMapping(value = "oneCoffee")
     public Optional<Coffee> findById(@Argument Integer id) {
         return coffeeService.findOne(id);
     }
